@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transloaded — Translate files on your Mac</title>
+    <meta name="description" content="A native Mac app that translates documents, PDFs and images side by side. Fully offline, powered by Apple's on-device Translation framework.">
+    <link rel="icon" type="image/png" href="assets/icon_mac.png">
+    <style>
+        :root {
+            --red: #D94425;
+            --red-light: #E8613F;
+            --peach: #E8B48A;
+            --cream: #FDF6EE;
+            --warm-white: #FFFCF8;
+            --text: #2C1810;
+            --text-muted: #7A6558;
+            --text-light: #A89383;
+            --blue: #2B4C9B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--warm-white);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 520px;
+            background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
+            z-index: -1;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 280px;
+            height: 260px;
+            margin-bottom: 2rem;
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 24px rgba(217, 68, 37, 0.12));
+        }
+
+        /* Floating letters animation */
+        .float-letter {
+            position: absolute;
+            font-weight: 700;
+            opacity: 0.12;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .float-letter:nth-child(2) { top: -10px; left: -30px; font-size: 2.4rem; color: var(--blue); animation-delay: 0s; }
+        .float-letter:nth-child(3) { top: 20px; right: -25px; font-size: 1.8rem; color: var(--red); animation-delay: 2s; }
+        .float-letter:nth-child(4) { bottom: 10px; left: -15px; font-size: 1.6rem; color: var(--peach); animation-delay: 4s; }
+        .float-letter:nth-child(5) { bottom: 30px; right: -20px; font-size: 2rem; color: var(--blue); animation-delay: 1s; }
+        .float-letter:nth-child(6) { top: 50%; left: -40px; font-size: 1.4rem; color: var(--red-light); animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .app-name {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+            color: var(--text);
+        }
+
+        .tagline {
+            font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            max-width: 440px;
+            line-height: 1.5;
+        }
+
+        /* --- Pills --- */
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 2rem;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid rgba(217, 68, 37, 0.15);
+            color: var(--red);
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            letter-spacing: 0.01em;
+        }
+
+        /* --- CTA --- */
+        .cta-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2.4rem;
+            gap: 0.8rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--red);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 2px 12px rgba(217, 68, 37, 0.25);
+        }
+
+        .cta-button:hover {
+            background: var(--red-light);
+            transform: translateY(-1px);
+        }
+
+        .cta-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .cta-sub {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* --- Description --- */
+        .description {
+            max-width: 560px;
+            margin: 3.5rem auto 0;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .description p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        /* --- Screenshots --- */
+        .screenshots {
+            max-width: 960px;
+            margin: 3.5rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .screenshots h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+
+        .screenshots .subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .screenshot-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .screenshot-card figcaption {
+            padding: 1rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .screenshot-card figcaption strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* --- Features --- */
+        .features {
+            max-width: 720px;
+            margin: 4rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .feature h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .feature p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* --- Footnotes --- */
+        .footnotes {
+            max-width: 560px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footnotes p {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 0.3rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 3rem;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-light);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--red);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .hero { padding: 3rem 1.5rem 2rem; }
+            .logo-wrapper { width: 200px; height: 190px; }
+            .float-letter { display: none; }
+            .pills { gap: 0.4rem; }
+            .pill { font-size: 0.75rem; padding: 0.35rem 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="logo-wrapper">
+            <img src="assets/logo_full.png" alt="Transloaded mascot — a cheerful character carrying letters from different scripts">
+            <span class="float-letter">あ</span>
+            <span class="float-letter">Ö</span>
+            <span class="float-letter">ñ</span>
+            <span class="float-letter">한</span>
+            <span class="float-letter">ç</span>
+        </div>
+
+        <h1 class="app-name">Transloaded</h1>
+        <p class="tagline">Translate files on your Mac. Offline. Side by side.</p>
+
+        <div class="pills">
+            <span class="pill">Documents, PDFs & Images</span>
+            <span class="pill">20 Languages</span>
+            <span class="pill">Fully Offline</span>
+            <span class="pill">macOS 15+</span>
+        </div>
+
+        <div class="cta-section">
+            <a href="#" class="cta-button" aria-label="Download on the Mac App Store">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download on the Mac App Store
+            </a>
+            <span class="cta-sub">Free to use · Lifetime license to support development</span>
+        </div>
+    </section>
+
+    <!-- Description -->
+    <section class="description">
+        <p>
+            Open any document, PDF, or image and get an instant translation right next to the original.
+            Powered by Apple's on-device Translation framework — no cloud, no account, no fuss.
+        </p>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="screenshots">
+        <h2>See it in action</h2>
+        <p class="subtitle">Translate documents and scrapbook notes side by side</p>
+
+        <div class="screenshot-grid">
+            <figure class="screenshot-card">
+                <img src="assets/screenshot_pdf.png" alt="Transloaded translating a scanned PDF with OCR, showing Japanese source, English, and Portuguese columns" loading="lazy">
+                <figcaption><strong>PDF + OCR translation</strong> — Scanned documents are recognized and translated into multiple languages simultaneously.</figcaption>
+            </figure>
+            <figure class="screenshot-card">
+                <img src="assets/screenshot_scrapbook.png" alt="Transloaded Scrapbook mode translating Portuguese poetry to Korean" loading="lazy">
+                <figcaption><strong>Scrapbook</strong> — Paste or type any text for a quick translation without opening a file.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <h2>What makes it different</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">🔒</span>
+                <h3>Private by design</h3>
+                <p>Everything stays on your Mac. No data ever leaves your device.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">📄</span>
+                <h3>Any file format</h3>
+                <p>Text files, PDFs, scanned documents with OCR, and images.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">🌐</span>
+                <h3>20 languages</h3>
+                <p>Download language packs once, translate offline forever.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">⚡</span>
+                <h3>Native & fast</h3>
+                <p>Built with Swift for macOS. No Electron, no web views.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footnotes -->
+    <section class="footnotes">
+        <p>¹ Translation runs on-device using Apple's models. Quality may vary compared to online services.</p>
+        <p>² Language packs require a one-time internet download. All translations happen offline after that.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <a href="privacy/">Privacy Policy</a> · Made by <a href="/">Anderson Santos</a>
+    </footer>
+
+</body>
+</html>

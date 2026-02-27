@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps — Anderson Santos</title>
+    <meta name="description" content="Apps made by Anderson Santos.">
+    <style>
+        :root {
+            --text: #1a1a1a;
+            --text-muted: #6b6b6b;
+            --text-light: #999;
+            --bg: #fafafa;
+            --card-bg: #fff;
+            --card-border: rgba(0,0,0,0.06);
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        header p {
+            margin-top: 0.4rem;
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .grid {
+            max-width: 720px;
+            margin: 2rem auto 0;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--card-shadow);
+        }
+
+        .app-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        .app-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 26px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .app-card h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .app-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .app-card .platform {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-light);
+            background: var(--bg);
+            padding: 0.25rem 0.6rem;
+            border-radius: 100px;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        footer a:hover { color: var(--text); }
+
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; max-width: 280px; }
+            header { padding: 3rem 1.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Apps</h1>
+        <p>Things I've built.</p>
+    </header>
+
+    <div class="grid">
+        <a href="Transloaded/" class="app-card">
+            <img src="Transloaded/assets/icon_mac.png" alt="Transloaded app icon">
+            <h2>Transloaded</h2>
+            <p>Translate files on your Mac. Offline. Side by side.</p>
+            <span class="platform">macOS</span>
+        </a>
+    </div>
+
+    <footer>
+        <a href="/">&larr; anderson-santos.dev</a>
+    </footer>
+
+</body>
+</html>

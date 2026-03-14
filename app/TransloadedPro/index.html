@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transloaded Pro — LLM-powered translation on your Mac</title>
+    <meta name="description" content="Transloaded Pro brings LLM-powered translation and proofreading to your Mac. Use local or cloud models with custom prompts. Fully native.">
+    <link rel="icon" type="image/png" href="assets/icon_mac.png">
+    <style>
+        :root {
+            --purple: #7040C0;
+            --purple-light: #9060E0;
+            --purple-dark: #4A2A8A;
+            --lavender: #F3EEFF;
+            --warm-white: #FDFBFF;
+            --text: #1E1030;
+            --text-muted: #6A5580;
+            --text-light: #A090B8;
+            --pink: #C040A0;
+            --blue: #2B4C9B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--warm-white);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 520px;
+            background: linear-gradient(180deg, var(--lavender) 0%, var(--warm-white) 100%);
+            z-index: -1;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 44px;
+            filter: drop-shadow(0 8px 24px rgba(112, 64, 192, 0.18));
+        }
+
+        /* Floating letters animation */
+        .float-letter {
+            position: absolute;
+            font-weight: 700;
+            opacity: 0.12;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .float-letter:nth-child(2) { top: -10px; left: -35px; font-size: 2.4rem; color: var(--purple); animation-delay: 0s; }
+        .float-letter:nth-child(3) { top: 20px; right: -30px; font-size: 1.8rem; color: var(--pink); animation-delay: 2s; }
+        .float-letter:nth-child(4) { bottom: 10px; left: -20px; font-size: 1.6rem; color: var(--blue); animation-delay: 4s; }
+        .float-letter:nth-child(5) { bottom: 30px; right: -25px; font-size: 2rem; color: var(--purple-light); animation-delay: 1s; }
+        .float-letter:nth-child(6) { top: 50%; left: -45px; font-size: 1.4rem; color: var(--pink); animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .app-name {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .pro-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            vertical-align: middle;
+            margin-left: 0.3rem;
+            position: relative;
+            top: -0.35em;
+        }
+
+        .tagline {
+            font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            max-width: 480px;
+            line-height: 1.5;
+            margin-top: 0.6rem;
+        }
+
+        /* --- Pills --- */
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 2rem;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid rgba(112, 64, 192, 0.18);
+            color: var(--purple);
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            letter-spacing: 0.01em;
+        }
+
+        /* --- CTA --- */
+        .cta-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2.4rem;
+            gap: 0.8rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--purple);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 2px 12px rgba(112, 64, 192, 0.28);
+        }
+
+        .cta-button:hover {
+            background: var(--purple-light);
+            transform: translateY(-1px);
+        }
+
+        .cta-coming-soon {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: white;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 1.5px solid rgba(112, 64, 192, 0.2);
+        }
+
+        .cta-sub {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* --- Description --- */
+        .description {
+            max-width: 560px;
+            margin: 3.5rem auto 0;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .description p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        /* --- Divider --- */
+        .divider {
+            max-width: 720px;
+            margin: 3.5rem auto 0;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--text-light);
+            font-size: 0.82rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(0,0,0,0.06);
+        }
+
+        /* --- Features --- */
+        .features {
+            max-width: 720px;
+            margin: 4rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .feature h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .feature p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* --- Prompt config preview --- */
+        .prompt-section {
+            max-width: 640px;
+            margin: 4rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .prompt-section h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+
+        .prompt-section .subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .prompt-card {
+            background: white;
+            border: 1px solid rgba(112, 64, 192, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(112, 64, 192, 0.06);
+        }
+
+        .prompt-row {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            gap: 1rem;
+        }
+
+        .prompt-row:last-child { border-bottom: none; }
+
+        .prompt-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--purple);
+            min-width: 110px;
+            padding-top: 0.05rem;
+            font-family: "SF Mono", "Fira Code", monospace;
+        }
+
+        .prompt-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* --- Footnotes --- */
+        .footnotes {
+            max-width: 560px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footnotes p {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 0.3rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 3rem;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-light);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--purple);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .hero { padding: 3rem 1.5rem 2rem; }
+            .logo-wrapper { width: 160px; height: 160px; }
+            .float-letter { display: none; }
+            .pills { gap: 0.4rem; }
+            .pill { font-size: 0.75rem; padding: 0.35rem 0.8rem; }
+            .prompt-name { min-width: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="logo-wrapper">
+            <img src="assets/icon_mac.png" alt="Transloaded Pro — Babel Fish with glasses">
+            <span class="float-letter">あ</span>
+            <span class="float-letter">Ö</span>
+            <span class="float-letter">ñ</span>
+            <span class="float-letter">한</span>
+            <span class="float-letter">ç</span>
+        </div>
+
+        <h1 class="app-name">Transloaded<span class="pro-badge">Pro</span></h1>
+        <p class="tagline">LLM-powered translation on your Mac. Local or cloud. Your prompts, your rules.</p>
+
+        <div class="pills">
+            <span class="pill">LLM-Powered</span>
+            <span class="pill">Custom Prompts</span>
+            <span class="pill">Local & Cloud Models</span>
+            <span class="pill">macOS 15+</span>
+        </div>
+
+        <div class="cta-section">
+            <span class="cta-coming-soon" aria-label="Coming soon">
+                Coming Soon
+            </span>
+            <span class="cta-sub">In development · Built on Transloaded</span>
+        </div>
+    </section>
+
+    <!-- Description -->
+    <section class="description">
+        <p>
+            Everything you love about Transloaded — files, PDFs, OCR, side-by-side layout —
+            now powered by any LLM you choose. Run models locally with LM Studio or Ollama,
+            or connect to cloud APIs. Configure prompts for translation, proofreading, or anything else.
+        </p>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <h2>What's new in Pro</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">🤖</span>
+                <h3>Any LLM you want</h3>
+                <p>Connect to any OpenAI-compatible endpoint — local or remote.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">🏠</span>
+                <h3>Local-first</h3>
+                <p>Works with LM Studio, Ollama, and other local servers. Nothing leaves your machine.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">✏️</span>
+                <h3>Proofread, don't just translate</h3>
+                <p>Built-in prompt presets for grammar, style, and language correction.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">🔧</span>
+                <h3>Custom prompts</h3>
+                <p>Write your own prompt templates with language placeholders.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">📄</span>
+                <h3>Same file formats</h3>
+                <p>Documents, PDFs, scanned pages with OCR — all carried over from Transloaded.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">⚡</span>
+                <h3>Native & fast</h3>
+                <p>Built with Swift for macOS. No Electron, no web views.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prompt Presets -->
+    <section class="prompt-section">
+        <h2>Built-in prompt presets</h2>
+        <p class="subtitle">Switch modes with one click — or write your own</p>
+
+        <div class="prompt-card">
+            <div class="prompt-row">
+                <span class="prompt-name">DEFAULT</span>
+                <span class="prompt-desc">Apple's on-device Translation framework — fast, offline, no configuration needed.</span>
+            </div>
+            <div class="prompt-row">
+                <span class="prompt-name">translate</span>
+                <span class="prompt-desc">Translation expert from source to target language. Output only the translated text.</span>
+            </div>
+            <div class="prompt-row">
+                <span class="prompt-name">proofread</span>
+                <span class="prompt-desc">Grammar, punctuation, and word usage check. Returns the corrected version silently.</span>
+            </div>
+            <div class="prompt-row">
+                <span class="prompt-name">proofreading</span>
+                <span class="prompt-desc">Explains what needs to be improved — useful for language learners.</span>
+            </div>
+            <div class="prompt-row">
+                <span class="prompt-name">custom</span>
+                <span class="prompt-desc">Define your own prompt using <code style="font-size:0.78rem;background:#f5f0ff;padding:0.1rem 0.3rem;border-radius:4px;color:var(--purple)">&#123;FROM&#125;</code>, <code style="font-size:0.78rem;background:#f5f0ff;padding:0.1rem 0.3rem;border-radius:4px;color:var(--purple)">&#123;TO&#125;</code>, and <code style="font-size:0.78rem;background:#f5f0ff;padding:0.1rem 0.3rem;border-radius:4px;color:var(--purple)">&#123;TEXT&#125;</code> placeholders.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footnotes -->
+    <section class="footnotes">
+        <p>¹ Requires a running OpenAI-compatible server (LM Studio, Ollama, or a cloud API key).</p>
+        <p>² Apple Translation fallback works fully offline with downloaded language packs.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <a href="/app">&larr; All Apps</a> |
+        <a href="../Transloaded/">Transloaded</a> · Made by <a href="/">Anderson Santos</a>
+    </footer>
+
+</body>
+</html>

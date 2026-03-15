@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TickMeOff — GTD task manager for Mac, iPhone & iPad</title>
-    <meta name="description" content="A native GTD-inspired task manager for macOS, iOS, and iPadOS. Your data lives as plain markdown files in a folder you own, synced via iCloud Drive.">
+    <title>TickMeOff — GTD task manager for Mac, iPhone, iPad & Apple Watch</title>
+    <meta name="description" content="A native GTD-inspired task manager for macOS, iOS, iPadOS, and watchOS. Your data lives as plain markdown files in a folder you own, synced via iCloud Drive.">
     <link rel="icon" type="image/png" href="assets/icon.png">
     <style>
         :root {
@@ -238,6 +238,64 @@
             line-height: 1.5;
         }
 
+        /* --- Apple Watch section --- */
+        .watch-section {
+            max-width: 620px;
+            margin: 4rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .watch-inner {
+            background: white;
+            border: 1px solid rgba(61, 170, 92, 0.12);
+            border-radius: 20px;
+            padding: 2.4rem 2rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(61, 170, 92, 0.06);
+        }
+
+        .watch-icon {
+            font-size: 2.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .watch-inner h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.8rem;
+        }
+
+        .watch-inner > p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 440px;
+            margin: 0 auto 1.6rem;
+        }
+
+        .watch-list {
+            list-style: none;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            text-align: left;
+        }
+
+        .watch-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .watch-check {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
         /* --- How it works --- */
         .how-it-works {
             max-width: 620px;
@@ -356,13 +414,14 @@
         </div>
 
         <h1 class="app-name">TickMeOff</h1>
-        <p class="tagline">GTD-inspired task management for Mac, iPhone, and iPad. Your data, your files.</p>
+        <p class="tagline">GTD-inspired task management for Mac, iPhone, iPad, and Apple Watch. Your data, your files.</p>
 
         <div class="pills">
-            <span class="pill">macOS · iOS · iPadOS</span>
+            <span class="pill">macOS · iOS · iPadOS · watchOS</span>
             <span class="pill">Plain Markdown Vault</span>
             <span class="pill">iCloud Sync</span>
             <span class="pill">Pomodoro Timer</span>
+            <span class="pill">Apple Watch</span>
             <span class="pill">No Account Needed</span>
         </div>
 
@@ -414,10 +473,34 @@
                 <p>Group projects into Focus Groups that integrate with Apple's Focus Mode for deep work.</p>
             </div>
             <div class="feature">
+                <span class="feature-icon" aria-hidden="true">⌚</span>
+                <h3>Apple Watch</h3>
+                <p>See flagged projects and run the Pomodoro timer right from your wrist.</p>
+            </div>
+            <div class="feature">
                 <span class="feature-icon" aria-hidden="true">🔒</span>
                 <h3>Private by design</h3>
                 <p>No account, no analytics. Your tasks never touch a developer-managed server.</p>
             </div>
+        </div>
+    </section>
+
+    <!-- Apple Watch -->
+    <section class="watch-section">
+        <div class="watch-inner">
+            <div class="watch-icon" aria-hidden="true">⌚</div>
+            <h2>Also on Apple Watch</h2>
+            <p>
+                The companion Watch app keeps your most important work visible at a glance.
+                Check your flagged projects, browse tasks in each one, and control a Pomodoro
+                session — all without reaching for your phone.
+            </p>
+            <ul class="watch-list">
+                <li><span class="watch-check">✓</span> Flagged projects list at a glance</li>
+                <li><span class="watch-check">✓</span> Browse tasks inside each project</li>
+                <li><span class="watch-check">✓</span> Start, pause, and stop the Pomodoro timer</li>
+                <li><span class="watch-check">✓</span> Haptic alerts when a session ends</li>
+            </ul>
         </div>
     </section>
 
@@ -460,6 +543,7 @@
     <section class="footnotes">
         <p>¹ iCloud sync requires an iCloud account and depends on Apple's iCloud Drive service.</p>
         <p>² Pomodoro notifications require notification permission on each device.</p>
+        <p>³ Apple Watch companion app requires a paired iPhone with TickMeOff installed.</p>
     </section>
 
     <!-- Footer -->

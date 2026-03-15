@@ -197,6 +197,66 @@
             color: var(--text-muted);
         }
 
+        /* --- Screenshots --- */
+        .screenshots {
+            max-width: 960px;
+            margin: 3.5rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .screenshots h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+
+        .screenshots .subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .screenshot-grid--iphone {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .screenshot-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .screenshot-card figcaption {
+            padding: 1rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .screenshot-card figcaption strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .screenshot-grid--iphone { grid-template-columns: 1fr; }
+        }
+
         /* --- Divider --- */
         .divider {
             max-width: 560px;
@@ -458,6 +518,38 @@
         <p>
             All your ideas in one place, organized by focus instead of deadlines. Free to use. No lock-in account and no subscriptions.
         </p>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="screenshots">
+        <h2>See it in action</h2>
+        <p class="subtitle">Across macOS, iPhone, and Apple Watch</p>
+
+        <div class="screenshot-grid">
+            <figure class="screenshot-card">
+                <img src="assets/hero.png" alt="TickMeOff main view on macOS showing areas and projects" loading="lazy">
+                <figcaption><strong>Areas & Projects</strong> — All your work organised in one place, with GTD-style horizons and focus groups.</figcaption>
+            </figure>
+        </div>
+
+        <div class="screenshot-grid screenshot-grid--iphone" style="margin-top: 2rem;">
+            <figure class="screenshot-card">
+                <img src="assets/hero_iphone.PNG" alt="TickMeOff main view on iPhone" loading="lazy">
+                <figcaption><strong>iPhone</strong> — Browse your projects and tasks on the go.</figcaption>
+            </figure>
+            <figure class="screenshot-card">
+                <img src="assets/iphone_pomodoro.PNG" alt="TickMeOff Pomodoro timer on iPhone" loading="lazy">
+                <figcaption><strong>Pomodoro on iPhone</strong> — Start a focus session wherever you are.</figcaption>
+            </figure>
+            <figure class="screenshot-card">
+                <img src="assets/filter_horizon.png" alt="TickMeOff filter by horizon view" loading="lazy">
+                <figcaption><strong>Filter by Horizon</strong> — Focus on what matters now vs. someday.</figcaption>
+            </figure>
+            <figure class="screenshot-card">
+                <img src="assets/priority.png" alt="TickMeOff priority view showing tasks sorted by urgency" loading="lazy">
+                <figcaption><strong>Priority View</strong> — See your most urgent tasks across all projects at a glance.</figcaption>
+            </figure>
+        </div>
     </section>
 
     <!-- Features -->

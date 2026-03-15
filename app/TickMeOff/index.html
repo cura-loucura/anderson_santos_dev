@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TickMeOff — GTD task manager for Mac, iPhone & iPad</title>
+    <meta name="description" content="A native GTD-inspired task manager for macOS, iOS, and iPadOS. Your data lives as plain markdown files in a folder you own, synced via iCloud Drive.">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <style>
+        :root {
+            --green: #3DAA5C;
+            --green-light: #5DC47A;
+            --lime: #C8F050;
+            --lime-soft: #F0FFCC;
+            --pink: #C060C8;
+            --pink-light: #D480DA;
+            --cream: #F5FFEA;
+            --warm-white: #FAFFF5;
+            --text: #1A2A18;
+            --text-muted: #4A6040;
+            --text-light: #8AAA7A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--warm-white);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 520px;
+            background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
+            z-index: -1;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin-bottom: 2rem;
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 36px;
+            box-shadow: 0 8px 32px rgba(61, 170, 92, 0.18), 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Floating task items animation */
+        .float-item {
+            position: absolute;
+            font-size: 1.1rem;
+            opacity: 0.18;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            user-select: none;
+            font-weight: 600;
+        }
+
+        .float-item:nth-child(2) { top: -8px; left: -40px; font-size: 1.4rem; color: var(--green); animation-delay: 0s; }
+        .float-item:nth-child(3) { top: 18px; right: -36px; font-size: 1rem; color: var(--pink); animation-delay: 2s; }
+        .float-item:nth-child(4) { bottom: 8px; left: -28px; font-size: 1.2rem; color: var(--pink-light); animation-delay: 4s; }
+        .float-item:nth-child(5) { bottom: 24px; right: -30px; font-size: 1.3rem; color: var(--green-light); animation-delay: 1s; }
+        .float-item:nth-child(6) { top: 50%; left: -50px; font-size: 1rem; color: var(--green); animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .app-name {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+            color: var(--text);
+        }
+
+        .tagline {
+            font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            max-width: 480px;
+            line-height: 1.5;
+        }
+
+        /* --- Pills --- */
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 2rem;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid rgba(61, 170, 92, 0.2);
+            color: var(--green);
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            letter-spacing: 0.01em;
+        }
+
+        /* --- CTA --- */
+        .cta-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2.4rem;
+            gap: 0.8rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--green);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 2px 12px rgba(61, 170, 92, 0.28);
+        }
+
+        .cta-button:hover {
+            background: var(--green-light);
+            transform: translateY(-1px);
+        }
+
+        .cta-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .cta-sub {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* --- Description --- */
+        .description {
+            max-width: 560px;
+            margin: 3.5rem auto 0;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .description p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        /* --- Divider --- */
+        .divider {
+            max-width: 560px;
+            margin: 3.5rem auto 0;
+            padding: 0 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .divider::before, .divider::after {
+            content: "· · ·";
+            display: block;
+            letter-spacing: 0.4em;
+        }
+
+        /* --- Features --- */
+        .features {
+            max-width: 720px;
+            margin: 4rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .feature h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .feature p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* --- How it works --- */
+        .how-it-works {
+            max-width: 620px;
+            margin: 4rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 14px;
+            padding: 1.2rem 1.4rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .step-num {
+            background: var(--lime-soft);
+            color: var(--green);
+            font-size: 0.85rem;
+            font-weight: 700;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .step h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: var(--text);
+        }
+
+        .step p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* --- Footnotes --- */
+        .footnotes {
+            max-width: 560px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footnotes p {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 0.3rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 3rem;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-light);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--green);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .hero { padding: 3rem 1.5rem 2rem; }
+            .logo-wrapper { width: 120px; height: 120px; }
+            .float-item { display: none; }
+            .pills { gap: 0.4rem; }
+            .pill { font-size: 0.75rem; padding: 0.35rem 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="logo-wrapper">
+            <img src="assets/icon.png" alt="TickMeOff app icon — a pink hand giving a finger-gun gesture with a green checkmark">
+            <span class="float-item">✓</span>
+            <span class="float-item">📋</span>
+            <span class="float-item">⏱</span>
+            <span class="float-item">✓</span>
+            <span class="float-item">📝</span>
+        </div>
+
+        <h1 class="app-name">TickMeOff</h1>
+        <p class="tagline">GTD-inspired task management for Mac, iPhone, and iPad. Your data, your files.</p>
+
+        <div class="pills">
+            <span class="pill">macOS · iOS · iPadOS</span>
+            <span class="pill">Plain Markdown Vault</span>
+            <span class="pill">iCloud Sync</span>
+            <span class="pill">Pomodoro Timer</span>
+            <span class="pill">No Account Needed</span>
+        </div>
+
+        <div class="cta-section">
+            <a href="#" class="cta-button" aria-label="Download on the App Store">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download on the App Store
+            </a>
+            <span class="cta-sub">Free to download · Unlock full features once</span>
+        </div>
+    </section>
+
+    <!-- Description -->
+    <section class="description">
+        <p>
+            Capture tasks, organise them into areas and projects, and work through them
+            with horizon and priority views — all backed by plain markdown files in a folder
+            you choose. No lock-in, no servers, no subscriptions.
+        </p>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <h2>Built for how you actually work</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">📂</span>
+                <h3>Areas & Projects</h3>
+                <p>Organise work into areas, break it down into projects, and track tasks with GTD-style horizons.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">📝</span>
+                <h3>Plain Markdown</h3>
+                <p>Everything is stored as human-readable markdown files. Open them in any editor, forever.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">☁️</span>
+                <h3>iCloud Sync</h3>
+                <p>Pick a vault folder in iCloud Drive and your tasks follow you across all your Apple devices.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">⏱</span>
+                <h3>Pomodoro Timer</h3>
+                <p>Built-in focus sessions with notifications to keep you on track without leaving the app.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">🎯</span>
+                <h3>Focus Mode</h3>
+                <p>Group projects into Focus Groups that integrate with Apple's Focus Mode for deep work.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon" aria-hidden="true">🔒</span>
+                <h3>Private by design</h3>
+                <p>No account, no analytics. Your tasks never touch a developer-managed server.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+        <h2>How it works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div>
+                    <h3>Pick a vault folder</h3>
+                    <p>On first launch, choose any folder — a local directory or one inside iCloud Drive for automatic sync.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div>
+                    <h3>Capture your work</h3>
+                    <p>Add areas, create projects inside them, and break each project into tasks with priorities and horizons.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div>
+                    <h3>Work through it</h3>
+                    <p>Switch between priority and horizon views, start a Pomodoro session, and tick things off as you go.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div>
+                    <h3>Your files, always</h3>
+                    <p>Everything is plain markdown on disk. Open the vault in Obsidian, VS Code, or any text editor you like.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footnotes -->
+    <section class="footnotes">
+        <p>¹ iCloud sync requires an iCloud account and depends on Apple's iCloud Drive service.</p>
+        <p>² Pomodoro notifications require notification permission on each device.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <a href="/app">&larr; All Apps</a> |
+        <a href="privacy/">Privacy Policy</a> · Made by <a href="/">Anderson Santos</a>
+    </footer>
+
+</body>
+</html>

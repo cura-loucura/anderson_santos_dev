@@ -220,6 +220,58 @@
             background: rgba(0,0,0,0.06);
         }
 
+        /* --- Screenshots --- */
+        .screenshots {
+            max-width: 960px;
+            margin: 3.5rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .screenshots h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+
+        .screenshots .subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .screenshot-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .screenshot-card figcaption {
+            padding: 1rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .screenshot-card figcaption strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
         /* --- Features --- */
         .features {
             max-width: 720px;
@@ -264,6 +316,7 @@
             color: var(--text-light);
             line-height: 1.5;
         }
+
 
         /* --- Prompt config preview --- */
         .prompt-section {
@@ -388,12 +441,26 @@
             <span class="pill">macOS 15+</span>
         </div>
 
-        <div class="cta-section">
-            <span class="cta-coming-soon" aria-label="Coming soon">
-                Coming Soon
-            </span>
-            <span class="cta-sub">In development · Built on Transloaded</span>
+        <!-- Screenshots -->
+        <section class="screenshots">
+        <h2>See it in action</h2>
+        <p class="subtitle">Translate documents and scrapbook notes side by side</p>
+
+        <div class="screenshot-grid">
+            <figure class="screenshot-card">
+                <img src="assets/hero.png" alt="Transloaded translating a scanned PDF with OCR, showing Japanese source, English, and Portuguese columns" loading="lazy">
+                <figcaption><strong>PDF + OCR translation</strong> — Scanned documents are recognized and translated into multiple languages simultaneously.</figcaption>
+            </figure>
+            <figure class="screenshot-card">
+                <img src="assets/languages.png" alt="Transloaded Scrapbook mode translating Portuguese poetry to Korean" loading="lazy">
+                <figcaption><strong>Languages</strong> — Paste or type any text for a quick translation without opening a file.</figcaption>
+            </figure>
+            <figure class="screenshot-card">
+                <img src="assets/languages.png" alt="Transloaded Scrapbook mode translating Portuguese poetry to Korean" loading="lazy">
+                <figcaption><strong>Scrapbook</strong> — Paste or type any text for a quick translation without opening a file.</figcaption>
+            </figure>
         </div>
+    </section>
     </section>
 
     <!-- Description -->

@@ -288,34 +288,47 @@
             color: var(--text);
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .feature {
-            text-align: center;
-            padding: 1.5rem 1rem;
+        .feature-table tr {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .feature-icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.6rem;
-            display: block;
+        .feature-table tr:last-child {
+            border-bottom: none;
         }
 
-        .feature h3 {
+        .feature-table td {
+            padding: 0.9rem 0.75rem;
+            vertical-align: top;
+        }
+
+        .feature-table .ft-icon {
+            font-size: 1.4rem;
+            width: 2.4rem;
+            padding-right: 0;
+            white-space: nowrap;
+        }
+
+        .feature-table .ft-title {
             font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
             color: var(--text);
+            width: 11rem;
+            white-space: nowrap;
         }
 
-        .feature p {
-            font-size: 0.85rem;
+        .feature-table .ft-desc {
+            font-size: 0.88rem;
             color: var(--text-light);
-            line-height: 1.5;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 600px) {
+            .feature-table .ft-title { width: auto; white-space: normal; }
         }
 
         /* --- Apple Watch section --- */
@@ -555,43 +568,45 @@
     <!-- Features -->
     <section class="features">
         <h2>Built for how you actually work</h2>
-        <div class="feature-grid">
-            <div class="feature">
-                <span class="feature-icon" aria-hidden="true">📂</span>
-                <h3>Areas & Projects</h3>
-                <p>Organise work into areas, break it down into projects, add attachments and track tasks with GTD-style horizons and focus.</p>
-            </div>
-            <div class="feature">
-                <span class="feature-icon" aria-hidden="true">📝</span>
-                <h3>Plain Markdown</h3>
-                <p>Everything is stored as human-readable files. Open them in any editor or let your AI Genie 🤖 do the heavy work.</p>
-            </div>
-            <div class="feature">
-                <span class="feature-icon" aria-hidden="true">☁️</span>
-                <h3>iCloud Sync</h3>
-                <p>Pick a vault folder in iCloud Drive and your tasks follow you across all your Apple devices.</p>
-            </div>
-            <div class="feature">
-                <span class="feature-icon" aria-hidden="true">⏱</span>
-                <h3>Pomodoro Timer</h3>
-                <p>Built-in focus sessions with notifications to keep you on track without leaving the app.</p>
-            </div>
-            <div class="feature">
-                <span class="feature-icon" aria-hidden="true">🎯</span>
-                <h3>Focus Mode</h3>
-                <p>Group projects into Focus Groups that integrate with Apple's Focus Mode for deeper immersion.</p>
-            </div>
-            <div class="feature">
-                <span class="feature-icon" aria-hidden="true">⌚</span>
-                <h3>Apple Watch</h3>
-                <p>See flagged projects and run the Pomodoro timer right from your wrist.</p>
-            </div>
-            <div class="feature">
-                <span class="feature-icon" aria-hidden="true">🔒</span>
-                <h3>Private by design</h3>
-                <p>No account, no analytics. The data is on your own computer and cloud.</p>
-            </div>
-        </div>
+        <table class="feature-table">
+            <tbody>
+                <tr>
+                    <td class="ft-icon" aria-hidden="true">📂</td>
+                    <td class="ft-title">Areas &amp; Projects</td>
+                    <td class="ft-desc">Organise work into areas, break it down into projects, add attachments and track tasks with GTD-style horizons and focus.</td>
+                </tr>
+                <tr>
+                    <td class="ft-icon" aria-hidden="true">📝</td>
+                    <td class="ft-title">Plain Markdown</td>
+                    <td class="ft-desc">Everything is stored as human-readable files. Open them in any editor or let your AI Genie 🤖 do the heavy work.</td>
+                </tr>
+                <tr>
+                    <td class="ft-icon" aria-hidden="true">☁️</td>
+                    <td class="ft-title">iCloud Sync</td>
+                    <td class="ft-desc">Pick a vault folder in iCloud Drive and your tasks follow you across all your Apple devices.</td>
+                </tr>
+                <tr>
+                    <td class="ft-icon" aria-hidden="true">⏱</td>
+                    <td class="ft-title">Pomodoro Timer</td>
+                    <td class="ft-desc">Built-in focus sessions with notifications to keep you on track without leaving the app.</td>
+                </tr>
+                <tr>
+                    <td class="ft-icon" aria-hidden="true">🎯</td>
+                    <td class="ft-title">Focus Mode</td>
+                    <td class="ft-desc">Group projects into Focus Groups that integrate with Apple's Focus Mode for deeper immersion.</td>
+                </tr>
+                <tr>
+                    <td class="ft-icon" aria-hidden="true">⌚</td>
+                    <td class="ft-title">Apple Watch</td>
+                    <td class="ft-desc">See flagged projects and run the Pomodoro timer right from your wrist.</td>
+                </tr>
+                <tr>
+                    <td class="ft-icon" aria-hidden="true">🔒</td>
+                    <td class="ft-title">Private by design</td>
+                    <td class="ft-desc">No account, no analytics. The data is on your own computer and cloud.</td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
     <!-- Apple Watch -->

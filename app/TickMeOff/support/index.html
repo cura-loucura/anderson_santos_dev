@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — TickMeOff</title>
+    <meta name="description" content="Get help with TickMeOff, the native GTD-inspired task manager for macOS, iOS, and watchOS.">
+    <link rel="icon" type="image/png" href="../assets/icon.png">
+    <style>
+        :root {
+            --green: #3DAA5C;
+            --green-light: #5DC47A;
+            --lime: #C8F050;
+            --lime-soft: #F0FFCC;
+            --pink: #C060C8;
+            --pink-light: #D480DA;
+            --cream: #F5FFEA;
+            --warm-white: #FAFFF5;
+            --text: #1A2A18;
+            --text-muted: #4A6040;
+            --text-light: #8AAA7A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--warm-white);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        .header {
+            padding: 3.5rem 2rem 0;
+            max-width: 640px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.15s;
+            margin-bottom: 2.5rem;
+        }
+
+        .back-link:hover { color: var(--green); }
+
+        .header h1 {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 0.6rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        /* --- Main --- */
+        main {
+            flex: 1;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 4rem;
+            width: 100%;
+        }
+
+        /* --- Tips --- */
+        .tips {
+            margin-bottom: 2.5rem;
+        }
+
+        .tips-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .tip-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            background: var(--cream);
+            border: 1px solid rgba(61, 170, 92, 0.1);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+        }
+
+        .tip-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 0.05rem;
+        }
+
+        .tip p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .tip p strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* --- Divider --- */
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- Form --- */
+        .form-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .field.full { grid-column: 1 / -1; }
+
+        label {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: white;
+            border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 8px;
+            padding: 0.65rem 0.85rem;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+        }
+
+        input::placeholder,
+        textarea::placeholder { color: var(--text-light); }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(61, 170, 92, 0.1);
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238AAA7A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.85rem center;
+            padding-right: 2.2rem;
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.55;
+        }
+
+        .submit-btn {
+            margin-top: 0.5rem;
+            background: var(--green);
+            color: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 2px 10px rgba(61, 170, 92, 0.22);
+        }
+
+        .submit-btn:hover {
+            background: var(--green-light);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active { transform: translateY(0); }
+
+        /* --- Thank you state --- */
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .thank-you.visible { display: block; }
+
+        .thank-you-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .thank-you h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+
+        .thank-you p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-light);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        footer a:hover { color: var(--green); }
+
+        /* --- Responsive --- */
+        @media (max-width: 520px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .field.full { grid-column: 1; }
+            .header { padding-top: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="/app/TickMeOff" class="back-link">
+            ← TickMeOff
+        </a>
+        <h1>Support</h1>
+        <p>Need help with TickMeOff? Check the tips below first — most issues can be resolved quickly.</p>
+    </div>
+
+    <main>
+
+        <!-- Common help tips -->
+        <div class="tips">
+            <p class="tips-label">Before you write</p>
+            <div class="tip-list">
+                <div class="tip">
+                    <span class="tip-icon">☁️</span>
+                    <p><strong>iCloud Sync issues?</strong> Make sure iCloud Drive is enabled in your System Settings and that you have enough space. Sometimes a simple restart of the app triggers the sync.</p>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">📂</span>
+                    <p><strong>Vault not found?</strong> TickMeOff uses a folder as a vault. If you moved or renamed the folder on your Mac/iPhone, you might need to re-select it in the app settings.</p>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">⌚</span>
+                    <p><strong>Apple Watch not syncing?</strong> Ensure your iPhone and Watch are near each other and that TickMeOff is installed on both. Flagged projects sync automatically.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Contact form -->
+        <div id="form-section">
+            <p class="form-title">Still need help? Send a message.</p>
+
+            <!-- Using Formspree ID from Transloaded: mdalryjz -->
+            <form
+                action="https://formspree.io/f/mdalryjz"
+                method="POST"
+            >
+                <!-- Hidden field to identify the app -->
+                <input type="hidden" name="_subject" value="New Support Message: TickMeOff">
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Your name"
+                            required
+                            autocomplete="name"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <div class="field full">
+                        <label for="topic">Topic</label>
+                        <select id="topic" name="topic" required>
+                            <option value="" disabled selected>Select a topic…</option>
+                            <option value="Bug report">Bug report</option>
+                            <option value="Feature request">Feature request</option>
+                            <option value="General question">General question</option>
+                            <option value="iCloud Sync">iCloud Sync issue</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label for="message">Message</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Describe your issue or question…"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="field full">
+                        <button type="submit" class="submit-btn">Send message</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Thank you message (shown after successful submission) -->
+        <div class="thank-you" id="thank-you">
+            <div class="thank-you-icon">✉️</div>
+            <h2>Message sent!</h2>
+            <p>Thanks for reaching out. I'll get back to you as soon as I can.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <a href="/app/TickMeOff">← TickMeOff</a> ·
+        <a href="/app/TickMeOff/privacy/">Privacy Policy</a> ·
+        Made by <a href="/">Anderson Santos</a>
+    </footer>
+
+    <script>
+        // Show thank-you state when Formspree redirects back with ?submitted=true
+        if (new URLSearchParams(window.location.search).get('submitted') === 'true') {
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('thank-you').classList.add('visible');
+        }
+    </script>
+
+</body>
+</html>

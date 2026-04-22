@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project management for curious generalist personalities like yourself.</title>
-    <meta name="description" content="A native GTD-inspired task manager for macOS, iOS, iPadOS, and watchOS. Your data lives as plain markdown files in a folder you own, synced via iCloud Drive.">
+    <meta name="description" content="A native GTD-inspired task manager for macOS, iOS, and iPadOS. Your data lives as plain markdown files in a folder you own, synced via iCloud Drive.">
     <link rel="icon" type="image/png" href="assets/icon.png">
     <style>
         :root {
@@ -510,7 +510,7 @@
         <p class="tagline">Too many interests? Get them all done!</p>
 
         <div class="pills">
-            <span class="pill">macOS · iOS · watchOS</span>
+            <span class="pill">macOS · iOS · iPadOS</span>
             <span class="pill">No database</span>
             <span class="pill">Cloud or local</span>
             <span class="pill">Pomodoro Timer</span>
@@ -558,34 +558,29 @@
     <!-- Screenshots -->
     <section class="screenshots">
         <h2>See it in action</h2>
-        <p class="subtitle">Across macOS, iPhone, and Apple Watch</p>
+        <p class="subtitle">Beautifully native on Mac, iPhone, and iPad.</p>
 
-        <div class="screenshot-grid">
-            <figure class="screenshot-card">
-                <img src="assets/hero.png" alt="TickMeOff main view on macOS showing areas and projects" loading="lazy">
-                <figcaption><strong>Areas & Projects</strong> — All your work organised in one place, with GTD-style horizons and focus groups.</figcaption>
-            </figure>
-        </div>
-
-        <div class="screenshot-grid screenshot-grid--iphone" style="margin-top: 2rem;">
-            <figure class="screenshot-card">
-                <img src="assets/hero_iphone.PNG" alt="TickMeOff main view on iPhone" loading="lazy">
-                <figcaption><strong>iPhone</strong> — Browse your projects and tasks on the go.</figcaption>
-            </figure>
-            <figure class="screenshot-card">
-                <img src="assets/iphone_pomodoro.PNG" alt="TickMeOff Pomodoro timer on iPhone" loading="lazy">
-                <figcaption><strong>Pomodoro on iPhone</strong> — Start a focus session wherever you are.</figcaption>
-            </figure>
-            <figure class="screenshot-card">
-                <img src="assets/filter_horizon.png" alt="TickMeOff filter by horizon view" loading="lazy">
-                <figcaption><strong>Filter by Horizon</strong> — Focus on what matters now vs. someday.</figcaption>
-            </figure>
-            <figure class="screenshot-card">
-                <img src="assets/priority.png" alt="TickMeOff priority view showing tasks sorted by urgency" loading="lazy">
-                <figcaption><strong>Priority View</strong> — See your most urgent tasks across all projects at a glance.</figcaption>
-            </figure>
+        <div class="screenshot-gallery">
+            <div class="gallery-hero">
+                <img src="assets/screenshots/mac-hero.png" alt="TickMeOff on macOS" loading="lazy">
+            </div>
+            <div class="gallery-scroll">
+                <img src="assets/screenshots/mac-tasks.png" alt="TickMeOff on Mac">
+                <img src="assets/screenshots/iphone-hero.png" alt="TickMeOff on iPhone">
+                <img src="assets/screenshots/ipad-main.png" alt="TickMeOff on iPad">
+                <img src="assets/screenshots/iphone-timer.png" alt="TickMeOff on iPhone">
+            </div>
         </div>
     </section>
+
+    <style>
+        .screenshot-gallery { max-width: 960px; margin: 3rem auto 0; padding: 0 2rem; }
+        .gallery-hero { margin-bottom: 2rem; }
+        .gallery-hero img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .gallery-scroll { display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; }
+        .gallery-scroll img { height: 400px; border-radius: 16px; scroll-snap-align: start; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        @media (max-width: 600px) { .gallery-scroll img { height: 300px; } }
+    </style>
 
     <!-- Features -->
     <section class="features">
@@ -618,35 +613,12 @@
                     <td class="ft-desc">Group projects into Focus Groups that integrate with Apple's Focus Mode for deeper immersion.</td>
                 </tr>
                 <tr>
-                    <td class="ft-icon" aria-hidden="true">⌚</td>
-                    <td class="ft-title">Apple Watch</td>
-                    <td class="ft-desc">See flagged projects and run the Pomodoro timer right from your wrist.</td>
-                </tr>
-                <tr>
                     <td class="ft-icon" aria-hidden="true">🔒</td>
                     <td class="ft-title">Private by design</td>
                     <td class="ft-desc">No account, no analytics. The data is on your own computer and cloud.</td>
                 </tr>
             </tbody>
         </table>
-    </section>
-
-    <!-- Apple Watch -->
-    <section class="watch-section">
-        <div class="watch-inner">
-            <div class="watch-icon" aria-hidden="true">⌚</div>
-            <h2>Also on Apple Watch</h2>
-            <p>
-                The companion Watch app keeps your most important work visible at a glance.
-                Check your flagged projects, browse tasks in each one, and control a Pomodoro
-                session — all without reaching for your phone.
-            </p>
-            <ul class="watch-list">
-                <li><span class="watch-check">✓</span> Flagged projects list at a glance</li>
-                <li><span class="watch-check">✓</span> Browse tasks inside each project</li>
-                <li><span class="watch-check">✓</span> Start, pause, and stop the Pomodoro timer</li>
-            </ul>
-        </div>
     </section>
 
     <!-- How it works -->
@@ -688,7 +660,6 @@
     <section class="footnotes">
         <p>¹ iCloud sync requires an iCloud account and depends on Apple's iCloud Drive service.</p>
         <p>² Pomodoro notifications require notification permission on each device.</p>
-        <p>³ Apple Watch companion app requires a paired iPhone with TickMeOff installed.</p>
     </section>
 
     <!-- Footer -->
